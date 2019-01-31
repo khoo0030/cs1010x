@@ -1,0 +1,35 @@
+stack_frac(frac, p1, p2)
+
+stack(p1, p2)
+
+rotate(rad, painter)
+
+eighth_turn_left(painter)
+
+quarter_turn_right(painter)
+
+flip_vert(painter)
+
+flip_horiz(painter)
+
+overlay_frac(frac, p1, p2)
+
+overlay(p1, p2)
+
+scale_independent(ratio_x, ratio_y, painter)
+
+scale(ratio, painter)
+
+translate(x,y, painter)
+
+turn_upside_down(painter)
+
+quarter_turn_left(painter)
+
+beside(painter1, painter2)
+
+make_cross(painter)
+
+repeat_pattern(n, pat, pic)
+
+stackn(n, painter)
