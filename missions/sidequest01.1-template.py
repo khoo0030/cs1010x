@@ -13,20 +13,34 @@ from runes import *
 ##########
 
 def egyptian(picture, n):
-    b = make_horizontal(quarter_turn_left(picture), n)
-    a = quarter_turn_left(make_middle_section(picture, n))
+    top = make_row(picture, n);
+    bottom = make_row(picture, n);
+    middle = make_middle(picture, n);
+
+    stack_middle_on_bottom = stack_frac((n-2)/(n-1), middle, bottom)
+
+    stack_top_on_middle_and_bottom = stack_frac(1/n, top, stack_middle_on_bottom)
     
-    c = stack_frac((n-1)/n, a, b)
-    d = stack_frac(1/n, b, c)
-    return quarter_turn_right(d)
+    return stack_top_on_middle_and_bottom;
 
-def make_middle_section(picture, n):
-    bottom = make_horizontal(picture, n-2)
-    top = make_horizontal(picture, n-2)
-    return stack_frac(1/n, top, stack_frac((n-1)/n, picture, bottom))
-
-def make_horizontal(picture, n):
+def make_row(picture, n):
     return quarter_turn_left(stackn(n, quarter_turn_right(picture)))
+
+def make_middle(picture, n):
+    right = quarter_turn_right(make_middle_sides(picture, n))
+    left = quarter_turn_right(make_middle_sides(picture, n))
+    center = quarter_turn_right(picture)
+
+    stack_center_on_right = stack_frac((n-2)/(n-1), center, right)
+
+    stack_left_on_center_and_right = stack_frac(1/n, left, stack_center_on_right)
+        
+    return quarter_turn_left(stack_left_on_center_and_right)
+
+def make_middle_sides(picture, n):
+    return stackn(n-2, picture)
+
+
 
 
 
