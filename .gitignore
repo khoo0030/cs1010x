@@ -112,3 +112,6 @@ venv.bak/
 .mypy_cache/
 ### Example user template template
 ### Example user template
+
+missions/pdfs
+tutorials/pdfs
