@@ -58,9 +58,24 @@ def accumulate(combiner, base, term, a, next, b):
         print("fold 2, term(a): " + str(term(a)))
         print("fold 2, next(a): " + str(next(a)))
         print("------------")
-        return combiner (term(a), accumulate(combiner, term, next(a), next, b, base))
-    return
+        return combiner (term(a), accumulate(combiner, base, term, next(a), next, b))
+    
+#print(accumulate(lambda x, y: x*y, 1, lambda x: x**2 + 1, 0, lambda x: x+2, 5))
+#print(accumulate(lambda x, y: x+y, 1, lambda x: x**2 + 1, 0, lambda x: x+2, 5))
+#print(accumulate(lambda x, y: x+y, 1, lambda x: x**2 + 1, 1, lambda x: x+2, 5))
 
-accumulate(lambda x, y: x*y, 1, lambda x: x**2 + 1, 0, lambda x: x+2, 5)
-accumulate(lambda x, y: x+y, 1, lambda x: x**2 + 1, 0, lambda x: x+2, 5)
-accumulate(lambda x, y: x+y, 1, lambda x: x**2 + 1, 1, lambda x: x+2, 5)
+
+#Q4:
+def sum(term, a, next, b):
+    combiner = lambda x,y: x+y
+    base = 0
+    return accumulate(combiner, base, term, a, next, b)
+
+print(sum(lambda x: x*2, 1, lambda x: x+1, 5))
+print(sum(lambda x: x*2, 0, lambda x: x+2, 10))
+print(sum(lambda x: x**2, 1, lambda x: x+1, 5))
+
+
+#Q5:
+
+    
