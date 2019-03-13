@@ -77,75 +77,37 @@ def sum(term, a, next, b):
 
 
 #Q5:
-def accumulate_iter2(combiner, null_value, term, a, next, b):
-    if a > b:
-        return null_value
-    
-    result = 0
-
-    step = next(0)
-    #print("step: " + str(step))
-
-    for i in range(b, a-1, -step):
-        #print("i: " + str(i) + "; a: " + str(a) + "; b: " + str(b))
-        if i == b:
-            result = combiner(null_value, term(i))
-        else:
-            result = combiner(result, term(i))
-        
-    return result
-
-def accumulate_iter3(combiner, null_value, term, a, next, b):
-    if a > b:
-        return null_value
-    
-    result = null_value
-
-    next_a = a
-
-    while(next_a <= b):
-        print("next_a value: " + str(next_a))
-        result = combiner(result, term(next_a))
-        next_a = next(next_a)
-
-    return result
-
-# has to be this order: (term(1), (term(2), (term(3), null_value)))
-# not this: (((null_value, term(1)), term(2)), term(3))
-
 def accumulate_iter(combiner, null_value, term, a, next, b):
-    if a > b:
-        return null_value
-
-    result = 0
-
-    step = next(0)
-    #print("step: " + str(step))
-
-    for i in range(b, a-1, -step):
-        print("i: " + str(i) + "; a: " + str(a) + "; b: " + str(b))
-        if i == b:
-            print("i == b")
-            term_value = term(i)
-            print("term value: " + str(term_value))
-            
-            result = combiner(term(i), null_value)
-            print("result value: " + str(result))
-            print("----------")
-        else:
-            print("i != b")
-            term_value = term(i)
-            print("term value: " + str(term_value))
-            
-            result = combiner(term(i), result)
-            print("result value: " + str(result))
-            print("----------")
+    results = []
+    
+    while a <= b:
+        results.append(term(a))
+        a = next(a)
         
-    return result
+    results.append(null_value)
+    
+    print(results)
+
+    # now we can combine from behind!
+    while len(results) > 1:
+        results[-2] = combiner(results[-2], results[-1])
+        results.pop()
+        print(results)
         
-print(accumulate_iter(lambda x,y: x+y, 1, lambda x: x*x, 1, lambda x: x+1, 5))        
+    return results[0]
+
+#print(accumulate_iter(lambda x,y: x*y, 1, lambda x: x*x, 1, lambda x: x+1, 5))        
 #print(accumulate_iter(lambda x,y: x+y, 1, lambda x: x*x, 1, lambda x: x+1, 5))
 #print(accumulate_iter(lambda x,y: x+y, 0, lambda x: x*x, 1, lambda x: x+1, 5))
+
+
+#python array:
+#https://www.w3schools.com/python/python_arrays.asp
+#results[-1] === last array element
+#results[-2] === 2nd last array element ...and so on
+
+#results.append(value) -> add value to array last element
+#results.pop(position) -> remove element in array position (default last element)
 
 
 #Q6:
