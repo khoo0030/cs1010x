@@ -50,7 +50,7 @@ def odd_even_sums(val):
 # src=source pole
 # dsc=destination pole
 # aux=auxillary pole
-def hanoi(n, src, dsc, aux):
+def hanoi2(n, src, dsc, aux):
     num_moves = 2**n - 1
 
     moves = ()
@@ -73,10 +73,26 @@ def hanoi(n, src, dsc, aux):
                 moves = moves + ((aux, dsc),)
 
     return moves
-            
+
+def hanoi(n, src, dsc, aux):
+    moves = []
+    
+    def move_tower(size, src, aux, dest, moves):
+        if size == 1:
+            print("move top disk from ", src, " to ", dest)
+            return moves.append((src, dest))
+        else:
+            move_tower(size-1, src, dest, aux, moves)
+            move_tower(1, src, aux, dest, moves)
+            move_tower(size-1, aux, src, dest, moves)
+
+        return moves    
+
+    return tuple(move_tower(n, src, aux, dsc, moves))
+    
 ##print(hanoi(1, 1, 2, 3))
 ##print(hanoi(1, 1, 3, 2))
-##print(hanoi(2, 1, 3, 2))
+##print(hanoi(3, 1, 3, 2))
 
 def print_move(src, dest):
     print("move top disk from ", src, " to ", dest)

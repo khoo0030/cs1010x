@@ -8,6 +8,6 @@ def fib(n):
         return fib(n - 1) + fib(n - 2)
 
 trace(fib)
-fib(3)
+fib(5)
 untrace(fib)
-fib(3)
+fib(5)
